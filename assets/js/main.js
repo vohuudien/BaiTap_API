@@ -190,7 +190,6 @@ function validation() {
       "Không được để trống mục này";
   }else if(!checkDuplicate(account)){
         document.getElementById("checkAccount").style.display = "block";
-        console.log("aa");
         document.getElementById("checkAccount").innerHTML = "Đã tồn tại";
         isValid = false;
   }
@@ -297,23 +296,28 @@ function deleteUser(account) {
   });
 }
 function checkDuplicate(account) {
-  console.log("1");
   const dupLi = apiGetUserDetail(account)
     .then((result) => {
-      console.log("2");
       if (result.data) {
-        console.log("3");
         return false
       }   
     })
     .catch((error) => {
-      console.log("4");
       console.log(error);
       return true
      
     });
-    console.log(dupLi)
     return dupLi;
     
+}
+
+const handleAddUser = async () => {
+
+  const duplicateUser = await checkDuplicate("ntran");
+  console.log(duplicateUser)
+  if(!duplicateUser){
+    console.log("user đã tồn tại")
+    return
+  }
 }
 
